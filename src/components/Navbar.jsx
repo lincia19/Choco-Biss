@@ -13,15 +13,15 @@ const Navbar = () => {
 
         {/* Logo */}
         <div className="ml-0">
-          <img src={logo2} className="w-20 h-auto object-contain" alt="Logo2" />
+          <Link to='/'><img src={logo2} className="w-20 h-auto object-contain" alt="Logo2" /></Link>
         </div>
 
         {/* Navbar Right Section */}
         <div className="flex items-center space-x-6">
 
           {/* Search Box */}
-          <div className="flex items-center gap-2 border border-gray-300 rounded px-2 py-1 bg-white">
-            <img src={assets.search1} className="w-5 h-5 cursor-pointer" alt="search icon" />
+          <div className="flex items-center gap-2 border border-gray-300 rounded px-3 py-2 bg-white">
+            <img src={assets.search1} className="w-7 h-7 cursor-pointer" alt="search icon" />
             <input
               type="text"
               placeholder="Search"
@@ -32,7 +32,7 @@ const Navbar = () => {
           {/* Profile Icon with Dropdown */}
           <div className="relative">
             <img
-              className="w-8 h-8 cursor-pointer rounded-full border-gray-300"
+              className="w-12 h-12 cursor-pointer rounded-full border-gray-300"
               src={assets.profile_icon}
               alt="Profile Icon"
               onClick={() => setProfileDropdown(!profileDropdown)}
@@ -46,17 +46,17 @@ const Navbar = () => {
             )}
           </div>
 
-          {/* Cart Icon */}
-          <Link to='/cart_icon' className='relative'>
-            <img src={assets.cart_icon} className='w-10 min-w-10' alt="Cart Icon" />
-            <p className='absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4 bg-black text-white aspect-square rounded-full text-[8px]'>10</p>
-          </Link>
+          <Link to="/cart" className="relative">
+  <img src={assets.cart_icon} className="w-13 min-w-13" alt="Cart Icon" />
+  <p className="absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4 bg-black text-white aspect-square rounded-full text-[8px]">2</p>
+</Link>
+
 
           {/* Hamburger Menu */}
           <img
             onClick={() => setVisible(true)}
             src={assets.menu_icon}
-            className='w-5 h-5 cursor-pointer'
+            className='w-10 h-10 cursor-pointer'
             alt="Menu Icon"
           />
         </div>

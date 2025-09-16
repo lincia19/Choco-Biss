@@ -24,10 +24,13 @@ import profile_icon from './profile_icon.png';
 import cart_icon from './cart_icon.png';
 import menu_icon from './menu_icon.png';
 import Hero_img from './Hero_img.jpg';
+import exchange from './exchange.jpeg';
+
 
 
 
 export const assets = {
+  exchange,
   Hero_img,
   menu_icon,
   cart_icon,
