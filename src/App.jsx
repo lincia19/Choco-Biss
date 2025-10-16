@@ -12,10 +12,21 @@ import Cart from './pages/Cart';
 import Login from './pages/Login';
 import PlaceOrder from './pages/PlaceOrder';
 import Orders from './pages/Orders';
+import Payment from './pages/Payment';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Search from './pages/Search';
 import Collection from './pages/Collection';
+import OrderSuccess from "./pages/OrderSuccess";
+import CODDetails from "./pages/CODDetails";
+import CardDetails from "./pages/CardDetails";
+
+
+      
+   
+
+
+
 
 const App = () => {
   return (
@@ -32,9 +43,14 @@ const App = () => {
           <Route path="/product/:productId" element={<Product />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/placeorder" element={<PlaceOrder />} />
+          <Route path="/payment" element={<Payment />} />
           <Route path="/orders" element={<Orders />} />
           <Route path="/login" element={<Login />} />
           <Route path="/search" element={<Search />} />
+          <Route path="/OrderSuccess" element={<OrderSuccess />} />
+          <Route path="/cod-details" element={<CODDetails />} />
+          <Route path="/payment" element={<Payment />} />
+          <Route path="/card-details" element={<CardDetails />} />
         </Routes>
       </main>
       

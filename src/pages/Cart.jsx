@@ -98,7 +98,7 @@ const Cart = () => {
             </div>
 
             <Link 
-              to="/placeorder"
+              to="/payment"
               className="w-full bg-rose-500 text-white py-3 rounded-lg font-semibold text-center block hover:bg-rose-600 transition-colors"
             >
               Proceed to Checkout

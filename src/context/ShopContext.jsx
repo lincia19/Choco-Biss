@@ -10,20 +10,28 @@ export const ShopContextProvider = ({ children }) => {
   const delivery_fee = 10;
   const [cart, setCart] = useState([]);
   const [user, setUser] = useState(null);
+  const [orders, setOrders] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
 
   // Load cart from localStorage on mount
   useEffect(() => {
     const savedCart = localStorage.getItem('chocoBissCart');
     const savedUser = localStorage.getItem('chocoBissUser');
+    const savedOrders = localStorage.getItem('chocoBissOrders');
     if (savedCart) setCart(JSON.parse(savedCart));
     if (savedUser) setUser(JSON.parse(savedUser));
+    if (savedOrders) setOrders(JSON.parse(savedOrders));
   }, []);
 
   // Save cart to localStorage whenever it changes
   useEffect(() => {
     localStorage.setItem('chocoBissCart', JSON.stringify(cart));
   }, [cart]);
+
+  // Persist orders
+  useEffect(() => {
+    localStorage.setItem('chocoBissOrders', JSON.stringify(orders));
+  }, [orders]);
 
   // Auth functions
   const login = (userData) => {
@@ -99,6 +107,23 @@ export const ShopContextProvider = ({ children }) => {
     return cart.reduce((total, item) => total + item.quantity, 0);
   };
 
+  // Orders: save an order locally (frontend-only). Returns generated orderId.
+  const saveOrder = (orderData) => {
+    const orderId = `ORD-${Date.now()}`;
+    const newOrder = {
+      id: orderId,
+      items: cart,
+      amount: getCartTotal() + delivery_fee,
+      currency,
+      createdAt: new Date().toISOString(),
+      ...orderData,
+    };
+    setOrders(prev => [newOrder, ...prev]);
+    return orderId;
+  };
+
+  const getOrders = () => orders;
+
   // Search and filter
   const filteredProducts = product.filter(p =>
     p.Name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -122,6 +147,7 @@ export const ShopContextProvider = ({ children }) => {
     getCartItemCount,
     login,
     logout
+    ,saveOrder, getOrders, orders
   };
 
   return (
