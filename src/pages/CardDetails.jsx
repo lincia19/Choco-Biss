@@ -1,14 +1,27 @@
 import React, { useState } from "react";
 
-const CardDetails = ({ onSubmit }) => {
-  const [card, setCard] = useState({
-    name: "Card Name",
-    number: "**** **** **** ****",
-    expiry: "MM/YY",
-    cvv: "***",
+const CheckoutPage = () => {
+  const [personal, setPersonal] = useState({
+    fullName: "",
+    email: "",
+    phone: "",
+    address: "",
   });
 
-  const handleChange = (e) => {
+  const [card, setCard] = useState({
+    name: "",
+    number: "",
+    expiry: "",
+    cvv: "",
+  });
+
+  const [orderPlaced, setOrderPlaced] = useState(false);
+
+  const handlePersonalChange = (e) => {
+    setPersonal({ ...personal, [e.target.name]: e.target.value });
+  };
+
+  const handleCardChange = (e) => {
     const { name, value } = e.target;
 
     // Only digits for number and CVV
@@ -20,116 +33,111 @@ const CardDetails = ({ onSubmit }) => {
 
     setCard({
       ...card,
-      [name]:
-        name === "number"
-          ? value.replace(/(\d{4})/g, "$1 ").trim() || "**** **** **** ****"
-          : name === "cvv"
-          ? "***"
-          : value || (name === "expiry" ? "MM/YY" : value),
+      [name]: value,
     });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(card);
+    // You can later connect this to backend or Razorpay
+    setOrderPlaced(true);
   };
 
-  return (
-    <div style={{ maxWidth: 400, margin: "30px auto", fontFamily: "Poppins, sans-serif" }}>
-      <div
-        style={{
-          background: "linear-gradient(135deg, #ff6b6b, #ff5252)",
-          color: "#fff",
-          borderRadius: 15,
-          padding: 20,
-          marginBottom: 20,
-          boxShadow: "0 8px 20px rgba(0,0,0,0.2)",
-        }}
-      >
-        <div style={{ fontSize: 18, letterSpacing: 2, marginBottom: 15 }}>
-          {card.number}
-        </div>
-        <div style={{ display: "flex", justifyContent: "space-between", fontSize: 14 }}>
-          <span>{card.name}</span>
-          <span>{card.expiry}</span>
-        </div>
+  if (orderPlaced) {
+    return (
+      <div style={{ textAlign: "center", marginTop: "100px", fontFamily: "Poppins, sans-serif" }}>
+        <h2 style={{ color: "#4BB543" }}>🎉 Order Placed Successfully!</h2>
+        <p>Thank you for shopping with <strong>Choco-Biss</strong> 🍫</p>
+        <p>Your chocolates will arrive soon!</p>
       </div>
+    );
+  }
+
+  return (
+    <div style={{ maxWidth: 500, margin: "40px auto", fontFamily: "Poppins, sans-serif" }}>
+      <h2 style={{ textAlign: "center", color: "#ff5252", marginBottom: 20 }}>Checkout</h2>
 
       <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column" }}>
-        <label style={{ marginBottom: 5, fontWeight: 500, color: "#555" }}>Name on Card</label>
+        {/* Personal Details */}
+        <h3 style={{ marginBottom: 10, color: "#333" }}>Personal Information</h3>
+
+        <input
+          type="text"
+          name="fullName"
+          value={personal.fullName}
+          onChange={handlePersonalChange}
+          placeholder="Full Name"
+          required
+          style={inputStyle}
+        />
+        <input
+          type="email"
+          name="email"
+          value={personal.email}
+          onChange={handlePersonalChange}
+          placeholder="Email"
+          required
+          style={inputStyle}
+        />
+        <input
+          type="tel"
+          name="phone"
+          value={personal.phone}
+          onChange={handlePersonalChange}
+          placeholder="Phone Number"
+          required
+          style={inputStyle}
+        />
+        <textarea
+          name="address"
+          value={personal.address}
+          onChange={handlePersonalChange}
+          placeholder="Full Address"
+          required
+          rows="3"
+          style={{ ...inputStyle, resize: "none" }}
+        ></textarea>
+
+        {/* Card Details */}
+        <h3 style={{ margin: "20px 0 10px", color: "#333" }}>Card Details</h3>
+
         <input
           type="text"
           name="name"
-          value={card.name === "Card Name" ? "" : card.name}
-          onChange={handleChange}
-          placeholder="Card Name"
+          value={card.name}
+          onChange={handleCardChange}
+          placeholder="Name on Card"
           required
-          style={{
-            padding: 12,
-            borderRadius: 10,
-            border: "1px solid #ccc",
-            outline: "none",
-            fontSize: 15,
-            marginBottom: 15,
-          }}
+          style={inputStyle}
         />
-
-        <label style={{ marginBottom: 5, fontWeight: 500, color: "#555" }}>Card Number</label>
         <input
           type="text"
           name="number"
-          value={card.number === "**** **** **** ****" ? "" : card.number.replace(/\s/g, "")}
-          onChange={handleChange}
+          value={card.number}
+          onChange={handleCardChange}
           placeholder="1234 5678 9012 3456"
           required
-          style={{
-            padding: 12,
-            borderRadius: 10,
-            border: "1px solid #ccc",
-            outline: "none",
-            fontSize: 15,
-            marginBottom: 15,
-          }}
+          style={inputStyle}
         />
-
         <div style={{ display: "flex", gap: 15 }}>
-          <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
-            <label style={{ marginBottom: 5, fontWeight: 500, color: "#555" }}>Expiry</label>
-            <input
-              type="text"
-              name="expiry"
-              value={card.expiry === "MM/YY" ? "" : card.expiry}
-              onChange={handleChange}
-              placeholder="MM/YY"
-              required
-              style={{
-                padding: 12,
-                borderRadius: 10,
-                border: "1px solid #ccc",
-                outline: "none",
-                fontSize: 15,
-              }}
-            />
-          </div>
-
-          <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
-            <label style={{ marginBottom: 5, fontWeight: 500, color: "#555" }}>CVV</label>
-            <input
-              type="text"
-              name="cvv"
-              value={card.cvv === "***" ? "" : card.cvv}
-              onChange={handleChange}
-              placeholder="123"
-              required
-              style={{
-                padding: 12,
-                borderRadius: 10,
-                border: "1px solid #ccc",
-                outline: "none",
-                fontSize: 15,
-              }}
-            />
-          </div>
+          <input
+            type="text"
+            name="expiry"
+            value={card.expiry}
+            onChange={handleCardChange}
+            placeholder="MM/YY"
+            required
+            style={{ ...inputStyle, flex: 1 }}
+          />
+          <input
+            type="text"
+            name="cvv"
+            value={card.cvv}
+            onChange={handleCardChange}
+            placeholder="CVV"
+            required
+            style={{ ...inputStyle, flex: 1 }}
+          />
         </div>
 
         <button
@@ -144,14 +152,25 @@ const CardDetails = ({ onSubmit }) => {
             fontSize: 16,
             fontWeight: 600,
             cursor: "pointer",
-            marginTop: 15,
+            marginTop: 20,
+            transition: "0.3s",
           }}
         >
-          Pay Now
+          Place Order
         </button>
       </form>
     </div>
   );
 };
 
-export default CardDetails;
+// Common input style
+const inputStyle = {
+  padding: 12,
+  borderRadius: 10,
+  border: "1px solid #ccc",
+  outline: "none",
+  fontSize: 15,
+  marginBottom: 15,
+};
+
+export default CheckoutPage;

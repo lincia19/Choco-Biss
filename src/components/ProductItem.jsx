@@ -20,7 +20,7 @@ const ProductItem = ({ id, image, name, price, showAddButton = true }) => {
       <div className="overflow-hidden relative">
         <img
           className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300 ease-in-out"
-          src={image}
+          src={image || '/placeholder.jpg'}
           alt={name}
         />
         {showAddButton && (

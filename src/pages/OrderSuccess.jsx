@@ -4,11 +4,22 @@ function OrderSuccess() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 p-6">
-      <h1 className="text-3xl font-bold mb-4 text-green-600">Order Placed Successfully!</h1>
-      <button onClick={() => navigate("/")} className="bg-rose-500 text-white px-4 py-2 rounded mt-2">
-        Back to Home
-      </button>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-pink-100 to-rose-200">
+      <div className="bg-white shadow-2xl rounded-2xl p-10 text-center">
+        <h1 className="text-5xl font-extrabold mb-6 text-green-600 animate-bounce">
+          🎉 Order Placed Successfully!
+        </h1>
+        <p className="text-lg text-gray-600 mb-8">
+          Thank you for shopping with <span className="font-semibold text-rose-500">Choco-Biss</span> 🍫  
+          Your order will arrive soon!
+        </p>
+        <button
+          onClick={() => navigate("/")}
+          className="bg-rose-500 hover:bg-rose-600 text-white px-6 py-3 rounded-xl text-lg font-semibold transition-transform transform hover:scale-105"
+        >
+          Back to Home
+        </button>
+      </div>
     </div>
   );
 }
