@@ -98,7 +98,7 @@ const Navbar = () => {
                       <Link to="/orders" className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50/80">Orders</Link>
                       <button onClick={handleLogout} className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-blue-50/80">Logout</button>
                     </div>
-                  )}
+                   )}
                 </>
               ) : (
                 <Link to="/login" className="text-sm font-medium text-gray-700 hover:text-rose-600">
